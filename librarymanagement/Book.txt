@@ -1,5 +1,6 @@
-Book [Book_Code=os, Book_Name=java, Author=xyz, Subject=cs, Issue_Status=Available, Issued_to=NotIssued, Issued_Date=null, Return_Date=null] 
-
-Book [Book_Code=qwe, Book_Name=cpro, Author=pqr, Subject=computer, Issue_Status=Available, Issued_to=NotIssued, Issued_Date=null, Return_Date=null] 
-
+poi,asd,dfg,vcx,Available,NotIssued,null,null
+sadf,afsg,sdfxg,fsdg,Available,NotIssued,null,null
+iii,dsfgth,sdfgh,dfgty,Available,NotIssued,null,null
+555,dsfgh,dfcg,sdfg,Available,NotIssued,null,null
+sdxfgh,zsfdxt,eszty,esxctfhgy,Available,NotIssued,null,null
 
