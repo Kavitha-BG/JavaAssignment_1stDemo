@@ -96,7 +96,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			  while(itr.hasNext()){  
 				    Book obj =(Book)itr.next(); 
 				    
-				    System.out.println(obj.getBook_Code() + " " +  obj.getBook_Name() + " " + obj.getAuthor() + " " + obj.getSubject() + " " + obj.getIssue_Status() + " " + obj.getIssued_to() + " " + obj.getIssued_Date()+ " " + obj.getReturn_Date());
+				    System.out.println(obj.getBook_Code() + "  " +  obj.getBook_Name() + "  " + obj.getAuthor() + "  " + obj.getSubject() + "  " + obj.getIssue_Status() + "  " + obj.getIssued_to() + "  " + obj.getIssued_Date()+ "  " + obj.getReturn_Date());
 			  }  
 	}
 	
@@ -118,16 +118,16 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 				    
 				    //boolean search = obj.getBook_Code().equals(book_Code);
 				    if ( (obj.getBook_Code().equals(book_Code)) == true ) {
-				    	ViewByBookCode();
-				    	
-				    	System.out.printf(" book_Code = " + obj.getBook_Code()+ "\n"+
+//				    	ViewByBookCode();
+				    	System.out.println("Book Details: ");
+				    	System.out.printf("book_Code = " + obj.getBook_Code()+ "\n"+
 				    			"book_Name = " + obj.getBook_Name() + "\n"+
 				    			"author = " + obj.getAuthor() + "\n" +
 				    			"subject = " + obj.getSubject() + "\n" +
 				    			"issue_Status = " + obj.getIssue_Status() + "\n" +
 				    			"issued_to = " + obj.getIssued_to() + "\n" +
 				    			"issued_Date = " + obj.getIssued_Date() + "\n" +
-				    			"return_Date = " + obj.getReturn_Date() );
+				    			"return_Date = " + obj.getReturn_Date() + "\n");
 				    	//count++;
 				    	break main3;
 				    }
@@ -137,11 +137,9 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			  }
 		}
 	}
-	
-	
-	public void ViewByBookCode() {
-		System.out.printf("Book Details: ");
-	}
+//	public void ViewByBookCode() {
+//		System.out.println("Book Details: ");
+//	}
 	
 	@Override
 	public ArrayList<Book> SortBook(ArrayList bookList) {
@@ -202,22 +200,24 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		for(int i=0; i < bookList.size(); i++) {
 			buffer.write(bookList.get(i).toString() + "\n");
 		}
+		
 		buffer.write("\n");
 		buffer.close();
+		//bookwrite(bookList);
 	}
 	
 	@Override
 	public void MarkAsIssued() throws IOException {
 		ArrayList bookList = retrieveBooksFromFile();
 		ArrayList userList = read2();
-		System.out.printf("Book_Code", "Book_name","Status");
+		System.out.println("Book_Code" + " " + "Book_name" + " " + "Book_Status ");
 		
 		Iterator itr = bookList.iterator();
 		while(itr.hasNext()){  
 		    Book obj =(Book)itr.next(); 
-		    System.out.printf(obj.getBook_Code() , obj.getBook_Name(), obj.getIssue_Status());
+		    System.out.println(obj.getBook_Code() + " " +obj.getBook_Name() +" " + obj.getIssue_Status() );
 		}
-		
+		System.out.println("-------------------------------------");
 		String a;
 		main:
 		while(true) {
@@ -226,7 +226,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			System.out.println("Enter the User Id: ");
 			String user_Id = sc.nextLine();
 			
-			int count =0;
+			int count = 0; 
 			int count1 = 0;
 			Iterator itr3 = bookList.iterator();
 			Iterator itr1 = userList.iterator();
@@ -238,6 +238,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					User u =(User) itr1.next();
 					if(u.getUser_Id().equals(user_Id)) {
 						count1++;
+						
 						if(obj.getIssue_Status().equals("Available")) {
 							obj.setIssue_Status("Issued");
 							obj.setIssued_to(user_Id);
@@ -256,12 +257,16 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 				}	
 	
 			}
-			if(count1 ==0) {
-				System.out.println("Please enter valid user id..");
-				continue main;
-			}
-			if(count == 0) {
-				System.out.println("Please enter valid book id..");
+//			if(count1 == 0) {
+//				System.out.println("Please enter valid user id or book id..");
+//				continue main;
+//			}
+//			if(count == 0) {
+//				System.out.println("Please enter valid book id..");
+//				continue main;
+//			}
+			if(count1 == 0) {
+				System.out.println(book_Code + " or " +user_Id +"Invalid ");
 				continue main;
 			}
 			
@@ -278,15 +283,14 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			}
 			System.out.println("Do you want to issue another book(Y/N)");
 			a = sc.nextLine();
-			if (a.equals("Y")) {
+			if (a.equalsIgnoreCase("Y")) {
 				continue main;
 			} else {
 				break main;
 			}
 		}
 
-		File file = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
+		File file = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
 
 		FileWriter writer = new FileWriter(file);
 		BufferedWriter buffer = new BufferedWriter(writer);
@@ -297,16 +301,17 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		buffer.close();
 
 		// write to the Book.txt
-		File file2 = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
+		File file2 = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
 
-		FileWriter writer2 = new FileWriter(file);
+		FileWriter writer2 = new FileWriter(file2);
 		BufferedWriter buffer2 = new BufferedWriter(writer2);
 		for (int i = 0; i < bookList.size(); i++) {
 			buffer2.write(bookList.get(i).toString() + "\n");
 		}
 		buffer2.write("\n");
 		buffer2.close();
+//		bookwrite(bookList);
+//		userwrite(userList);
 	}
 
 	@Override
@@ -324,7 +329,8 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			int count = 0;
 			boolean flag = false;
 
-			main1: while (itr3.hasNext()) {
+			main1: 
+			while (itr3.hasNext()) {
 				Book obj = (Book) itr3.next();
 				if (obj.getBook_Code().equals(book_Code)) {
 					if (obj.getIssue_Status().equals("Issued")) {
@@ -341,8 +347,8 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			}
 
 			if (flag == true) {
-				System.out.println("Book is already returned");
-				System.out.println("Try other books..");
+				System.out.println("Book is already available in Library");
+				
 				MarkAsReturned();
 			}
 			if (count == 0) {
@@ -351,7 +357,8 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			}
 
 			Iterator itr1 = userList.iterator();
-			main3: while (itr1.hasNext()) {
+			main3: 
+			while (itr1.hasNext()) {
 				User u = (User) itr1.next();
 				if (u.getIssued_Book_Id().equals(book_Code)) {
 					u.setDate_Issued(null);
@@ -363,15 +370,14 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 			System.out.println("Do you want to return another book(Y/N)");
 			a = sc.nextLine();
-			if (a.equals("Y")) {
+			if (a.equalsIgnoreCase("Y")) {
 				continue main;
 			} else {
 				break main;
 			}
 		}
 
-		File file = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
+		File file = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
 
 		FileWriter writer = new FileWriter(file);
 		BufferedWriter buffer = new BufferedWriter(writer);
@@ -382,8 +388,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		buffer.close();
 
 		// write to the Book.txt
-		File file2 = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
+		File file2 = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
 
 		FileWriter writer2 = new FileWriter(file);
 		BufferedWriter buffer2 = new BufferedWriter(writer2);
@@ -398,7 +403,8 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		if (bookList.isEmpty()) {
 			System.out.println(" List is Empty ");
 		} else {
-			main4: while (true) {
+			main4: 
+				while (true) {
 				System.out.println("Enter the Book Code: ");
 				String book_Code = sc.nextLine();
 				int count = 0;
@@ -406,8 +412,8 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 				while (itr.hasNext()) {
 					Book obj = (Book) itr.next();
 
-					boolean search = obj.getBook_Code().equals(book_Code);
-					if (search == true) {
+					//boolean search = obj.getBook_Code().equals(book_Code);
+					if (obj.getBook_Code().equals(book_Code)) {
 						itr.remove();
 
 						System.out.println("Book deleted Successfully");
@@ -455,8 +461,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	}
 
 	public void bookwrite(ArrayList<Book> bookList) {
-		File file = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
+		File file = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
 		try {
 			FileWriter writer = new FileWriter(file);
 			BufferedWriter buffer = new BufferedWriter(writer);
@@ -471,8 +476,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	}
 
 	public void userwrite(ArrayList<User> userList) {
-		File file1 = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
+		File file1 = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
 		try {
 			FileWriter writer = new FileWriter(file1);
 			BufferedWriter buffer = new BufferedWriter(writer);
@@ -489,7 +493,6 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	@Override
 	public void Exit(ArrayList<Book> bookList, ArrayList<User> userList) {
 //	  public void Exit(ArrayList<Book> bookList) 
-
 //	  public void Exit(ArrayList<User> userList){
 		bookwrite(bookList);
 		userwrite(userList);
@@ -500,8 +503,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	public ArrayList<Book> retrieveBooksFromFile() throws FileNotFoundException {
 		ArrayList<Book> booklist = new ArrayList<>();
 
-		File file1 = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
+		File file1 = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
 		BufferedReader br = new BufferedReader(new FileReader(file1));
 		try {
 			String str = null; // file to string conversion
@@ -529,8 +531,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					}
 
 				}
-				Book b2 = new Book(split[0], split[1], split[2], split[3], split[4], split[5], localDateTime,
-						localDateTime1);
+				Book b2 = new Book(split[0], split[1], split[2], split[3], split[4], split[5], localDateTime,localDateTime1);
 				booklist.add(b2);
 			}
 
@@ -543,8 +544,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	public ArrayList<User> read2() throws FileNotFoundException {
 		ArrayList<User> userlist = new ArrayList<>();
 
-		File file1 = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
+		File file1 = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
 		BufferedReader br = new BufferedReader(new FileReader(file1));
 		try {
 			String str = null; // file to string conversion
@@ -554,23 +554,24 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 				// System.out.println(split);
 				LocalDateTime localDateTime = null;
 				LocalDateTime localDateTime1;
-				if (split[3].equals("null")) {
+				if (split[6].equals("null")) {
 					localDateTime = null;
 				} else {
 					try {
-						localDateTime = LocalDateTime.parse(split[3], formatter);
+						localDateTime = LocalDateTime.parse(split[6], formatter);
 					} catch (Exception e) {
 						System.out.println(e);
 					}
 				}
-				if (split[4].equals("null")) {
+				if (split[7].equals("null")) {
 					localDateTime1 = null;
 
 				} else {
-					localDateTime1 = LocalDateTime.parse(split[4], formatter);
+					localDateTime1 = LocalDateTime.parse(split[7], formatter);
 				}
 				User u2 = new User(split[0], split[1], split[2], localDateTime, localDateTime1);
 				userlist.add(u2);
+				System.out.println();
 			}
 		} catch (ArrayIndexOutOfBoundsException | IOException e) {
 
@@ -608,14 +609,15 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 				case 1:
 					sc.nextLine();
-					main: while (true) {
+					main: 
+					while (true) {
 						String a;
 						bookList = liManagementSystem.AddBook(bookList);
 
 						System.out.println(" Do you want to add another book (Y/N)");
 						a = sc.nextLine();
 
-						if (a.equals("Y")) {
+						if (a.equalsIgnoreCase("Y")) {
 							continue main;
 						} else {
 							break main;
@@ -649,8 +651,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 						String a;
 						bookList = liManagementSystem.DeleteBookByBookCode(bookList);
 
-						File file = new File(
-								"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
+						File file = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
 
 						FileWriter writer = new FileWriter(file);
 						BufferedWriter buffer = new BufferedWriter(writer);
@@ -663,7 +664,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 						System.out.println(" Do you want to delete another book (Y/N)");
 						a = sc.nextLine();
 
-						if (a.equals("Y")) {
+						if (a.equalsIgnoreCase("Y")) {
 							continue main;
 						} else {
 							break main;
@@ -686,7 +687,6 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					liManagementSystem.Exit(bookList, userList);
 					// s.Exit(bookList);
 					// s.Exit(userList);
-//					condition = false;
 					break;
 				default:
 					System.out.println("Invalid Option, please enter a valid option  ");
@@ -697,7 +697,9 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 	public void GenerateReport() throws FileNotFoundException {
 		System.out.println("**********Choose Report Type********** ");
-		System.out.println("1.	Export All \n" + "2.	Export By Availability \n" + "3.	Export By Issued \n");
+		System.out.println("1.	Export All \n" + 
+					"2.	Export By Availability \n" + 
+					"3.	Export By Issued \n");
 		int ch = sc.nextInt();
 		switch (ch) {
 		case 1:

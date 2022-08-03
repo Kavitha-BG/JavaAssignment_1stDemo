@@ -1,6 +1,7 @@
-poi,asd,dfg,vcx,Available,NotIssued,null,null
-sadf,afsg,sdfxg,fsdg,Available,NotIssued,null,null
-iii,dsfgth,sdfgh,dfgty,Available,NotIssued,null,null
+poi,asd,dfg,vcx,Issued,eee,2022-08-03T16:50:14.802841700,2022-08-10T16:50:14.802841700
+iii,dsfgth,sdfgh,dfgty,Issued,eee,2022-08-03T16:50:32.776849,2022-08-10T16:50:32.776849
 555,dsfgh,dfcg,sdfg,Available,NotIssued,null,null
 sdxfgh,zsfdxt,eszty,esxctfhgy,Available,NotIssued,null,null
+9876,django,lkjh,computer,Available,NotIssued,null,null
+qwwer,adsert,dfg,fdgt,Available,NotIssued,null,null
 
