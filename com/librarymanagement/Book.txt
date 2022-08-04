@@ -1,7 +1,2 @@
-iii,dsfgth,sdfgh,dfgty,Issued,eee,2022-08-03T16:50:32.776849,2022-08-10T16:50:32.776849
-sdxfgh,zsfdxt,eszty,esxctfhgy,Available,NotIssued,null,null
-9876,django,lkjh,computer,Available,NotIssued,null,null
-qwwer,adsert,dfg,fdgt,Available,NotIssued,null,null
-dsz,sefrd,drgfv,gdfv,Available,NotIssued,null,null
-g33,general ,www,gk,Available,NotIssued,null,null
+1234,maths,abc,math,Issued,kkk,2022-08-04T19:50:45.795165800,2022-08-11T19:50:45.795165800
 

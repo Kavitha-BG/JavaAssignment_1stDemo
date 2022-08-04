@@ -91,6 +91,7 @@ public class Book{
 		this.return_Date = return_Date;
 	}
 	
+	public Book() {}
 	
 	
 	public Book(String book_Code, String book_Name, String author, String subject, String issue_Status, String issued_to, LocalDateTime issued_Date, LocalDateTime return_Date) {

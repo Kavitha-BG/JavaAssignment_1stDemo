@@ -9,6 +9,10 @@ public class User {
 	String issued_Book_Id;
 	LocalDateTime date_Issued;
 	LocalDateTime return_Date;
+	
+	public User() {
+		
+	}
 
 	public User(String name, String user_Id, String issued_Book_Id, LocalDateTime date_Issued, LocalDateTime return_Date) {
 		this.name = name;
