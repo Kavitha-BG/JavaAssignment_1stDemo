@@ -13,15 +13,16 @@ interface BookManagement {
 	
 	public void ViewByBookCode(ArrayList<Book> bookList);
 	
-	public void CheckBookAvailability() throws IOException;
-	
 	public ArrayList<Book> DeleteBookByBookCode(ArrayList<Book> bookList );
+	
+	public void CheckBookAvailability() throws IOException;
 	
 	public void MarkAsIssued(List<Book> bookList, ArrayList<User> userList1) throws IOException;
 	
 	public void MarkAsReturned(List<Book> bookList, ArrayList<User> userList1) throws IOException;
 	
-	public void Exit();
+	//public void Exit();
+	public ArrayList<Book> SortBook(ArrayList<Book> bookList);
 
 }
 

@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class LibraryManagementSystem implements BookManagement, UserManagement {
+public class LibraryManagementSystem implements BookManagement, UserManagement, Runnable {
 
 	ArrayList<User> userlist = new ArrayList<>();
 	ArrayList<Book> booklist = new ArrayList<>();
 
-	Scanner sc = new Scanner(System.in);
+	Scanner userInput = new Scanner(System.in);
 
 	@Override
 	public ArrayList<Book> AddBook(ArrayList<Book> bookList) throws IOException {
@@ -18,7 +18,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 		main: while (true) {
 			System.out.println("Enter the Book Code: ");
-			Book_Code = sc.nextLine();
+			Book_Code = userInput.nextLine();
 
 			Iterator<Book> itr = bookList.iterator();
 			while (itr.hasNext()) {
@@ -26,6 +26,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 				if (Book_Code.equals(obj.getBook_Code())) {
 					System.out.println("Duplicate Code. Please enter unique Book-Code");
+					System.out.println("-------------------------------------------------------");
 					continue main;
 				}
 			}
@@ -33,11 +34,11 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		}
 
 		System.out.print("Enter the Book name : ");
-		String book_Name = sc.nextLine();
+		String book_Name = userInput.nextLine();
 		System.out.print("Enter the Author : ");
-		String author = sc.nextLine();
+		String author = userInput.nextLine();
 		System.out.print("Enter the Subject : ");
-		String subject = sc.nextLine();
+		String subject = userInput.nextLine();
 		String issue_Status = "Available";
 		String issued_to = "NotIssued";
 		LocalDateTime issued_Date = null;
@@ -57,11 +58,11 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		String user_Id;
 
 		System.out.println("Enter the User name: ");
-		String name = sc.nextLine();
+		String name = userInput.nextLine();
 
 		main1: while (true) {
 			System.out.println("Enter the User-Id: ");
-			user_Id = sc.nextLine();
+			user_Id = userInput.nextLine();
 
 			Iterator<User> itr = userList.iterator();
 			while (itr.hasNext()) {
@@ -69,7 +70,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 				if (user_Id.equals(obj.getUser_Id())) {
 					System.out.println("Duplicate Code. Please enter unique User-Id");
-					System.out.println("------------------------------------");
+					System.out.println("-------------------------------------------------------");
 					continue main1;
 				}
 			}
@@ -85,7 +86,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		System.out.println(userList);
 		System.out.println(u);
 		System.out.println("User Added Successfully");
-		System.out.println("------------------------------------");
+		System.out.println("-------------------------------------------------------");
 		return userList;
 	}
 
@@ -101,6 +102,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					+ obj.getSubject() + "\t" + obj.getIssue_Status() + "\t" + obj.getIssued_to() + "\t"
 					+ obj.getIssued_Date() + " \t" + obj.getReturn_Date());
 		}
+		System.out.println("---------------------------------------");
 
 	}
 
@@ -113,10 +115,10 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	public void ViewByBookCode(ArrayList<Book> bookList) {
 		main3: while (true) {
 			System.out.println("Enter the Book Code: ");
-			String book_Code = sc.nextLine();
+			String book_Code = userInput.nextLine();
 			int count = 0;
 
-			Iterator itr = bookList.iterator();
+			Iterator<Book> itr = bookList.iterator();
 			while (itr.hasNext()) {
 				Book obj = (Book) itr.next();
 
@@ -124,37 +126,39 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 				if ((obj.getBook_Code().equals(book_Code)) == true) {
 					ViewByBookCode();
 
-					System.out.printf(" book_Code = " + obj.getBook_Code() + "\n" + "book_Name = " + obj.getBook_Name()
+					System.out.printf("book_Code = " + obj.getBook_Code() + "\n" + "book_Name = " + obj.getBook_Name()
 							+ "\n" + "author = " + obj.getAuthor() + "\n" + "subject = " + obj.getSubject() + "\n"
 							+ "issue_Status = " + obj.getIssue_Status() + "\n" + "issued_to = " + obj.getIssued_to()
 							+ "\n" + "issued_Date = " + obj.getIssued_Date() + "\n" + "return_Date = "
 							+ obj.getReturn_Date() + "\n");
+					System.out.println("-----------------------------------------------------------------------------");
 					// count++;
 					break main3;
 				}
 			}
 			if (count == 0) {
 				System.out.println("Book not available");
+				System.out.println("-------------------------------------------------------");
 			}
 		}
 	}
 
 	public void ViewByBookCode() {
-		System.out.printf("Book Details: ");
+		System.out.printf("Book Details: \n");
 	}
 
-//		@Override
-//		public ArrayList<Book> SortBook(ArrayList bookList) {
-//			Collections.sort(bookList);
-//			return null;
-//		}
+	@Override
+	public ArrayList<Book> SortBook(ArrayList bookList) {
+		Collections.sort(bookList);
+		return null;
+	}
 
 	@Override
 	public void CheckBookAvailability() throws IOException {
 		ArrayList<Book> bookList = retrieveBooksFromFile();
 		// System.out.println(bookList);
 		System.out.println("Enter book_Code to check availability: ");
-		String book_Code = sc.nextLine();
+		String book_Code = userInput.nextLine();
 		String issued_to = "";
 
 		Iterator<Book> itr = bookList.iterator();
@@ -178,18 +182,20 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 		if (count == 0) {
 			System.out.println("Book code is not available");
+			System.out.println("-------------------------------------------------------");
 		} else {
 			System.out.println(book_Code + " available in library");
-			System.out.println("------------------------------------");
+			System.out.println("-------------------------------------------------------");
 		}
 
 		if (flag == true) {
 			System.out.println(book_Code + " assigned to " + issued_to);
+			System.out.println("-------------------------------------------------------");
 			CheckBookAvailability();
-			System.out.println("------------------------------------");
+
 		} else {
 			System.out.println("Do you want to Check another Book Availability (Y/N) ");
-			String a = sc.nextLine();
+			String a = userInput.nextLine();
 			if (a.equalsIgnoreCase("Y")) {
 				CheckBookAvailability();
 			}
@@ -206,123 +212,127 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		for (Book book : bookList) {
 			System.out.println(book);
 		}
-		System.out.println("-------------------------------------");
+		System.out.println("-------------------------------------------------------");
 		String a;
 		boolean issueBook = true;
-		
+
 		while (issueBook) {
 
 			System.out.println("Enter the Book-Code: ");
-			String book_Code = sc.nextLine();
-			if(book_Code.equals("")) {
+			String book_Code = userInput.nextLine();
+			if (book_Code.equals("")) {
 				System.out.println("Enter Valid Book Code");
 				continue;
 			}
 
 			System.out.println("Enter the User Id: ");
-			String user_Id = sc.nextLine();
-			if(user_Id.equals("")) {
-				System.out.println("Enter Valid UseR Id");
+			String user_Id = userInput.nextLine();
+			if (user_Id.equals("")) {
+				System.out.println("Enter Valid User Id");
 				continue;
 			}
 
-			User u = null;
+			User tempUser = null;
 
 			for (User user : userList) {
 				if (user.getUser_Id().equalsIgnoreCase(user_Id)) {
-					u = user;
+					tempUser = user;
 				}
 			}
-			
-			Book b = null;
-			
-			for (Book book : bookList ) {
+
+			Book tempBook = null;
+
+			for (Book book : bookList) {
 				if (book.getBook_Code().equals(book_Code)) {
-					b = book;
+					tempBook = book;
 				}
 			}
-			
-			if(b == null || u == null) {
+
+			if (tempBook == null || tempUser == null) {
 				System.out.println(book_Code + " or " + user_Id + " Invalid. ");
+				System.out.println("-------------------------------------------------------");
 				continue;
 			} else {
-				
-				b.setIssue_Status("Issued");
-				b.setIssued_to(user_Id);
-				b.setIssued_Date(LocalDateTime.now());
-				b.setReturn_Date(LocalDateTime.now().plusDays(7));
-				
-				u.setIssued_Book_Id(book_Code);
-				u.setDate_Issued(LocalDateTime.now());
-				u.setReturn_Date(LocalDateTime.now().plusDays(7));
-				
-				System.out.println("Book " + book_Code + "issued to user " + user_Id + " successfully");
-				
+
+				tempBook.setIssue_Status("Issued");
+				tempBook.setIssued_to(user_Id);
+				tempBook.setIssued_Date(LocalDateTime.now());
+				tempBook.setReturn_Date(LocalDateTime.now().plusDays(7));
+
+				tempUser.setIssued_Book_Id(book_Code);
+				tempUser.setDate_Issued(LocalDateTime.now());
+				tempUser.setReturn_Date(LocalDateTime.now().plusDays(7));
+
+				System.out.println("Book " + book_Code + " issued to user " + user_Id + " successfully");
+				System.out.println("-------------------------------------------------------");
 			}
 
-		System.out.println("Do you want to issue another book(Y/N)");
-		a = sc.nextLine();
+			System.out.println("Do you want to issue another book(Y/N)");
+			a = userInput.nextLine();
 
-		if (a.equalsIgnoreCase("Y")) {
-			issueBook = true;
-		} else {
-			break;
+			if (a.equalsIgnoreCase("Y")) {
+				issueBook = true;
+			} else {
+				break;
+			}
+
 		}
 
-	}
-
-	bookwrite(bookList);
-	userwrite(userList);
+		bookwrite(bookList);
+		userwrite(userList);
 	}
 
 	@Override
 	public void MarkAsReturned(List<Book> bookList, ArrayList<User> userList1) throws IOException {
 		ArrayList<User> userList = userList1;
-		
+
 		String a;
 		main: while (true) {
-			
+
 			System.out.println("Enter the Book-Code: ");
-			String book_Code = sc.nextLine();
-			
+			String book_Code = userInput.nextLine();
 
+			User tempUser = null;
 
-			User u = null;
-
-			Book b = null;
+			Book tempBook = null;
 			String user_Id = null;
-			
-			for (Book book : bookList ) {
+
+			for (Book book : bookList) {
 				if (book.getBook_Code().equals(book_Code)) {
-					b = book;
+					tempBook = book;
 					user_Id = book.getIssued_to();
 				}
 			}
-			
+
 			for (User user : userList) {
 				if (user.getUser_Id().equalsIgnoreCase(user_Id)) {
-					u = user;
+					tempUser = user;
 				}
 			}
 
-			if (b == null) {
-
+			if (tempBook == null) {
+				System.out.println("Book code invalid");
+				System.out.println("-------------------------------------------------------");
 				continue;
+			} else if (tempBook != null && tempUser == null) {
+				System.out.println("Book is already available in Library");
+				System.out.println("-------------------------------------------------------");
 			} else {
-				
-				b.setIssue_Status("Available");
-				b.setIssued_to("NotIssued");
-				b.setIssued_Date(null);
-				b.setReturn_Date(null);
-				
-				u.setIssued_Book_Id(null);
-				u.setDate_Issued(null);
-				u.setReturn_Date(null);
+
+				tempBook.setIssue_Status("Available");
+				tempBook.setIssued_to("NotIssued");
+				tempBook.setIssued_Date(null);
+				tempBook.setReturn_Date(null);
+
+				tempUser.setIssued_Book_Id(null);
+				tempUser.setDate_Issued(null);
+				tempUser.setReturn_Date(null);
 				System.out.println("Book Returned successfully ");
+				System.out.println("-------------------------------------------------------");
 			}
-			
+
 			System.out.println("Do you want to return another book(Y/N)");
-			a = sc.nextLine();
+			a = userInput.nextLine();
 			if (a.equalsIgnoreCase("Y")) {
 				continue main;
 			} else {
@@ -336,27 +346,29 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 	public ArrayList<Book> DeleteBookByBookCode(ArrayList<Book> bookList) {
 		if (bookList.isEmpty()) {
-			System.out.println(" List is Empty ");
+			System.out.println("List is Empty ");
+			System.out.println("-------------------------------------------------------");
 		} else {
 			main4: while (true) {
 				System.out.println("Enter the Book Code: ");
-				String book_Code = sc.nextLine();
+				String book_Code = userInput.nextLine();
 				int count = 0;
 				Iterator<Book> itr = bookList.iterator();
 				while (itr.hasNext()) {
 					Book obj = (Book) itr.next();
 
-					// boolean search = obj.getBook_Code().equals(book_Code);
 					if (obj.getBook_Code().equals(book_Code)) {
 						itr.remove();
 
 						System.out.println("Book deleted Successfully");
+						System.out.println("-------------------------------------------------------");
 						count++;
 						break main4;
 					}
 				}
 				if (count == 0) {
 					System.out.println("Book code is not available");
+					System.out.println("-------------------------------------------------------");
 					continue main4;
 				}
 			}
@@ -367,12 +379,13 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 	@Override
 	public ArrayList<User> DeleteUser(ArrayList<User> userList) {
 		if (userList.isEmpty()) {
-			System.out.println(" List is Empty ");
+			System.out.println("List is Empty ");
+			System.out.println("-------------------------------------------------------");
 
 		} else {
 			main4: while (true) {
 				System.out.println("Enter User Id");
-				String book_Code = sc.nextLine();
+				String book_Code = userInput.nextLine();
 				Iterator<User> iterator = userList.iterator();
 				int count = 0;
 				while (iterator.hasNext()) {
@@ -381,12 +394,14 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					if (search == true) {
 						iterator.remove();
 						System.out.println("User deleted Successfully ");
+						System.out.println("-------------------------------------------------------");
 						count++;
 						break main4;
 					}
 				}
 				if (count == 0) {
 					System.out.println("User code is not available ");
+					System.out.println("-------------------------------------------------------");
 					continue main4;
 				}
 			}
@@ -440,9 +455,12 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 		File file1 = new File(
 				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
+		
 		BufferedReader br = new BufferedReader(new FileReader(file1));
+		
 		try {
 			String str = null; // file to string conversion
+			
 			while ((str = br.readLine()) != null) {
 				DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 				String[] split = str.split(",");// split string
@@ -467,6 +485,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					}
 
 				}
+				
 				Book b2 = new Book(split[0], split[1], split[2], split[3], split[4], split[5], localDateTime,
 						localDateTime1);
 				booklist.add(b2);
@@ -481,7 +500,9 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 
 		File file1 = new File(
 				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\User.txt");
+
 		BufferedReader br = new BufferedReader(new FileReader(file1));
+
 		try {
 			String str = null; // file to string conversion
 			while ((str = br.readLine()) != null) {
@@ -521,27 +542,30 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 			ArrayList<Book> bookList = liManagementSystem.retrieveBooksFromFile();
 			ArrayList<User> userList = liManagementSystem.read2();
 
+			List<Book> reportBooksList = new ArrayList<>();
+
 			boolean condition = true;
 			while (condition) {
+
 				System.out.println("Menu: \n" + "*************Library Management System************* \n"
 						+ "1. Add Book \n" + "2. Add User \n" + "3. View Books List \n" + "4. View by Book-Code \n"
 						+ "5. Delete Book by Book-Code \n" + "6. Check Book Availability \n" + "7. Mark as Issued \n"
 						+ "8. Mark as Returned \n" + "9. Generate Book Report \n" + "10. Delete User \n" + "11. Exit \n"
 						+ "Enter your choice: ");
 
-				Scanner sc = new Scanner(System.in);
-				int ch = sc.nextInt();
+				Scanner userInput = new Scanner(System.in);
+				int choice = userInput.nextInt();
 
-				switch (ch) {
+				switch (choice) {
 
 				case 1:
-					sc.nextLine();
+					userInput.nextLine();
 					main: while (true) {
 						String a;
 						bookList = liManagementSystem.AddBook(bookList);
 
 						System.out.println("Do you want to add another book (Y/N)");
-						a = sc.nextLine();
+						a = userInput.nextLine();
 
 						if (a.equalsIgnoreCase("Y")) {
 							continue main;
@@ -551,14 +575,14 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					}
 					break;
 				case 2:
-					sc.nextLine();
+					userInput.nextLine();
 					boolean addUser = true;
 					while (addUser) {
 						String a;
 						userList = liManagementSystem.AddUser(userList);
 
 						System.out.println("Do you want to add another user (Y/N)");
-						a = sc.nextLine();
+						a = userInput.nextLine();
 
 						if (!a.equalsIgnoreCase("Y")) {
 							addUser = false;
@@ -572,24 +596,13 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					liManagementSystem.ViewByBookCode(bookList);
 					break;
 				case 5:
-					sc.nextLine();
+					userInput.nextLine();
 					main: while (true) {
 						String a;
 						bookList = liManagementSystem.DeleteBookByBookCode(bookList);
 
-						File file = new File(
-								"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Book.txt");
-
-						FileWriter writer = new FileWriter(file);
-						BufferedWriter buffer = new BufferedWriter(writer);
-						for (int i = 0; i < bookList.size(); i++) {
-							buffer.write(bookList.get(i).toString() + "\n");
-						}
-						buffer.write("\n");
-						buffer.close();
-
 						System.out.println("Do you want to delete another book (Y/N)");
-						a = sc.nextLine();
+						a = userInput.nextLine();
 
 						if (a.equalsIgnoreCase("Y")) {
 							continue main;
@@ -609,7 +622,7 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 					liManagementSystem.MarkAsReturned(bookList, userList);
 					break;
 				case 9:
-					liManagementSystem.GenerateReport();
+					liManagementSystem.GenerateReport(bookList);
 					break;
 				case 10:
 					liManagementSystem.DeleteUser(userList);
@@ -624,264 +637,154 @@ public class LibraryManagementSystem implements BookManagement, UserManagement {
 		}
 	}
 
-	public void GenerateReport() throws FileNotFoundException {
+	public void GenerateReport(List<Book> bookList) throws FileNotFoundException {
 		System.out.println("**********Choose Report Type********** ");
 		System.out.println("1.	Export All \n" + "2.	Export By Availability \n" + "3.	Export By Issued \n");
-//			GenerateReport gr = new GenerateReport();
-		int ch = sc.nextInt();
-		switch (ch) {
+		int choice = userInput.nextInt();
+		switch (choice) {
+
 		case 1:
-			ArrayList<Book> temp = new ArrayList<Book>();
-			ArrayList<Book> bookList = retrieveBooksFromFile();
-			Iterator<Book> itr = bookList.iterator();
-			while (itr.hasNext()) {
-				Book obj = (Book) itr.next();
-				temp.add(obj);
-			}
-			exportAll(bookList);
-			break;
+			LibraryManagementSystem libraryManagementSystem1 = new LibraryManagementSystem();
+			Thread thread1 = new Thread(libraryManagementSystem1);
+			thread1.start();
+
 		case 2:
-//					ArrayList<Book> temp1 = new ArrayList<Book>();
-			ArrayList<Book> bookList1 = retrieveBooksFromFile();
-//					Iterator<Book> itr1 = bookList1.iterator();
-//					while (itr1.hasNext()) {
-//						Book obj = (Book) itr1.next();
-//						if(obj.getIssue_Status().equals("Available")) {
-//							temp1.add(obj);
-//						}
-//					}
-			exportByAvailability(bookList1);
-			break;
-		case 3:
-			ArrayList<Book> temp2 = new ArrayList<Book>();
-			ArrayList<Book> bookList2 = retrieveBooksFromFile();
-			Iterator<Book> itr2 = bookList2.iterator();
-			while (itr2.hasNext()) {
-				Book obj = (Book) itr2.next();
-				if (obj.getIssue_Status().equals("Issued")) {
-					temp2.add(obj);
+
+			ArrayList bookList1 = new ArrayList<>();
+
+			for (Book book : bookList) {
+				if (book.getIssue_Status().equalsIgnoreCase("Available")) {
+					bookList1.add(book);
 				}
+
 			}
-			exportByIssued(bookList2);
+
+			LibraryManagementSystem libraryManagementSystem2 = new LibraryManagementSystem();
+			Thread thread2 = new Thread(libraryManagementSystem2);
+			thread2.start();
+			break;
+
+		case 3:
+
+			ArrayList tempBookList = new ArrayList<>();
+
+			for (Book book : bookList) {
+				if (book.getIssue_Status().equalsIgnoreCase("Issued")) {
+					tempBookList.add(book);
+				}
+
+			}
+
+			LibraryManagementSystem libraryManagementSystem3 = new LibraryManagementSystem();
+			Thread thread3 = new Thread(libraryManagementSystem3);
+			thread3.start();
 			break;
 		default:
-			System.out.println("Please enter a valid choice..");
-		}
-	}
-
-	public void exportAll(ArrayList<Book> bookList) {
-		File file = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
-		try {
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter buffer = new BufferedWriter(writer);
-			for (int i = 0; i < bookList.size(); i++) {
-				buffer.write(bookList.get(i).toString() + "\n");
-			}
-			buffer.write("\n");
-			buffer.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	public void exportByAvailability(ArrayList<Book> bookList1) {
-		File file = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
-		try {
-			ArrayList<Book> temp1 = new ArrayList<Book>();
-			ArrayList<Book> bookList2 = retrieveBooksFromFile();
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter buffer = new BufferedWriter(writer);
-			Iterator<Book> itr2 = bookList2.iterator();
-			while (itr2.hasNext()) {
-				Book obj = (Book) itr2.next();
-				if (obj.getIssue_Status().equals("Issued")) {
-					temp1.add(obj);
-				}
-			}
-			buffer.write("\n");
-			buffer.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	public void exportByIssued(ArrayList<Book> bookList2) {
-		File file = new File(
-				"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
-		try {
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter buffer = new BufferedWriter(writer);
-			for (int i = 0; i < bookList2.size(); i++) {
-				buffer.write(bookList2.get(i).toString() + "\n");
-			}
-			buffer.write("\n");
-			buffer.close();
-		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("Please enter a valid choice...");
 		}
 	}
 
 	@Override
-	public void Exit() {
-		// TODO Auto-generated method stub
+	public void run() {
 
 	}
-
 }
 
-//		public void GenerateReport() throws FileNotFoundException {
-//			System.out.println("**********Choose Report Type********** ");
-//			System.out.println("1.	Export All \n" + 
-//						"2.	Export By Availability \n" + 
-//						"3.	Export By Issued \n");
-//			int ch = sc.nextInt();
-//			switch (ch) {
-//			case 1:
-//				ArrayList temp = new ArrayList<>();
-//				ArrayList bookList = retrieveBooksFromFile();
-
-//				Iterator itr = bookList.iterator();
-//				while (itr.hasNext()) {
-//					Book obj = (Book) itr.next();
-//					temp.add(obj);
-//				}
-//				Thread1 e = new Thread1(temp);
-//				e.start();
-//				Thread2 v = new Thread2(temp);
-//				v.start();
-//				break;
-//			case 2:
-//				ArrayList temp1 = new ArrayList<>();
-//				ArrayList bookList1 = retrieveBooksFromFile();
-
-//				Iterator itr1 = bookList1.iterator();
-//				while (itr1.hasNext()) {
-//					Book obj = (Book) itr1.next();
-//					if (obj.getIssue_Status().equals("Available")) {
-//						temp1.add(obj);
-//					}
-//				}
-//				Thread1 t1 = new Thread1(temp1);
-//				t1.start();
-//				Thread2 t2 = new Thread2(temp1);
-//				t2.start();
-//				break;
-//			case 3:
-//				ArrayList temp2 = new ArrayList<>();
-//				ArrayList bookList2 = retrieveBooksFromFile();
-
-//				Iterator itr2 = bookList2.iterator();
-//				while (itr2.hasNext()) {
-//					Book obj = (Book) itr2.next();
-//					if (obj.getIssue_Status().equals("Issued")) {
-//						temp2.add(obj);
-//					}
-//				}
-//				Thread1 t11 = new Thread1(temp2);
-//				t11.start();
-//				Thread2 t22 = new Thread2(temp2);
-//				t22.start();
-//				break;
-//			default:
-//				System.out.println("Please enter a valid choice...");
-//			}
-//		}
-// }
-
-// class Thread1 extends Thread {
-//		ArrayList temp = new ArrayList();
-
-//		public Thread1(ArrayList bookList) {
-//			for (int i = 0; i < bookList.size(); i++) {
-//				temp.add(bookList.get(i));
-//			}
-//		}
-
-//		@Override
-//		public void run() {
-//			for (int i = 0; i < temp.size() / 2; i++) {
-//				System.out.println("Thread1 is running..");
-//				File file = new File("C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
-//				FileWriter writer = null;
-//				try {
-//					writer = new FileWriter(file);
-//				} catch (IOException e) {
-//					throw new RuntimeException(e);
-//				}
-//				BufferedWriter buffer = new BufferedWriter(writer);
-//				for (int j = 0; j < temp.size(); j++) {
-//					try {
-//						buffer.write(temp.get(j).toString() + "\n");
-//					} catch (IOException e) {
-//						throw new RuntimeException(e);
-//					}
-//				}
-//				try {
-//					buffer.write("\n");
-//				} catch (IOException e) {
-//					throw new RuntimeException(e);
-//				}
-//				try {
-//					buffer.close();
-//				} catch (IOException e) {
-//					throw new RuntimeException(e);
-//				}
-//				try {
-//					Thread1.sleep(2000);
-//				} catch (InterruptedException e) {
-//					throw new RuntimeException(e);
-//				}
-//			}
-//		}
-// }
-
-// class Thread2 extends Thread {
-//		ArrayList temp = new ArrayList();
+//class Thread1 extends Thread {
+//	ArrayList temp = new ArrayList();
 //
-//		public Thread2(ArrayList bookList) {
-//			for (int i = 0; i < bookList.size(); i++) {
-//				temp.add(bookList.get(i));
-//			}
+//	public Thread1(ArrayList bookList) {
+//		for (int i = 0; i < bookList.size(); i++) {
+//			temp.add(bookList.get(i));
 //		}
+//	}
 //
-//		@Override
-//		public void run() {
-//			for (int i = temp.size() / 2; i < temp.size(); i++) {
-//				System.out.println("Thread2 is running..");
-//				File file = new File(
-//						"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
-//
-//				FileWriter writer = null;
+//	@Override
+//	public void run() {
+//		for (int i = 0; i < temp.size() / 2; i++) {
+//			System.out.println("Thread1 is running..");
+//			File file = new File(
+//					"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
+//			FileWriter writer = null;
+//			try {
+//				writer = new FileWriter(file);
+//			} catch (IOException e) {
+//				throw new RuntimeException(e);
+//			}
+//			BufferedWriter buffer = new BufferedWriter(writer);
+//			for (int j = 0; j < temp.size(); j++) {
 //				try {
-//					writer = new FileWriter(file);
+//					buffer.write(temp.get(j).toString() + "\n");
 //				} catch (IOException e) {
 //					throw new RuntimeException(e);
 //				}
-//				BufferedWriter buffer = new BufferedWriter(writer);
-//				for (int j = 0; j < temp.size(); j++) {
-//					try {
-//						buffer.write(temp.get(j).toString() + "\n");
-//					} catch (IOException e) {
-//						throw new RuntimeException(e);
-//					}
-//				}
-//				try {
-//					buffer.write("\n");
-//				} catch (IOException e) {
-//					throw new RuntimeException(e);
-//				}
-//				try {
-//					buffer.close();
-//				} catch (IOException e) {
-//					throw new RuntimeException(e);
-//				}
-//				try {
-//					Thread2.sleep(2000);
-//				} catch (InterruptedException e) {
-//					throw new RuntimeException(e);
-//				}
+//			}
+//			try {
+//				buffer.write("\n");
+//			} catch (IOException e) {
+//				throw new RuntimeException(e);
+//			}
+//			try {
+//				buffer.close();
+//			} catch (IOException e) {
+//				throw new RuntimeException(e);
+//			}
+//			try {
+//				Thread1.sleep(2000);
+//			} catch (InterruptedException e) {
+//				throw new RuntimeException(e);
 //			}
 //		}
 //	}
+//}
+//
+//class Thread2 extends Thread {
+//	ArrayList temp = new ArrayList();
+//
+//	public Thread2(ArrayList bookList) {
+//		for (int i = 0; i < bookList.size(); i++) {
+//			temp.add(bookList.get(i));
+//		}
+//	}
+//
+//	@Override
+//	public void run() {
+//		
+//		for (int i = temp.size() / 2; i < temp.size(); i++) {
+//			System.out.println("Thread2 is running..");
+//			File file = new File(
+//					"C:\\Users\\Kavitha_BG\\eclipse-workspace\\LibraryManagementSystem\\src\\com\\librarymanagement\\Report.txt");
+//
+//			FileWriter writer = null;
+//			try {
+//				writer = new FileWriter(file);
+//			} catch (IOException e) {
+//				throw new RuntimeException(e);
+//			}
+//			BufferedWriter buffer = new BufferedWriter(writer);
+//
+//			for (int j = 0; j < temp.size(); j++) {
+//				try {
+//					buffer.write(temp.get(j).toString() + "\n");
+//				} catch (IOException e) {
+//					throw new RuntimeException(e);
+//				}
+//			}
+//			try {
+//				buffer.write("\n");
+//			} catch (IOException e) {
+//				throw new RuntimeException(e);
+//			}
+//			try {
+//				buffer.close();
+//			} catch (IOException e) {
+//				throw new RuntimeException(e);
+//			}
+//			try {
+//				Thread2.sleep(2000);
+//			} catch (InterruptedException e) {
+//				throw new RuntimeException(e);
+//			}
+//		}
+//	}
+//}
