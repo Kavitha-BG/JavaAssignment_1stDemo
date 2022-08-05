@@ -1,34 +1,35 @@
 package com.librarymanagement;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Book{
-	public String book_Code;
-	public String book_Name;
+public class Book implements Serializable{
+	public String bookCode;
+	public String bookName;
 	public String author;
 	public String subject;
-	public String issue_Status;
-	public String issued_to;
-	public LocalDateTime issued_Date;
-	public LocalDateTime return_Date;
+	public String issueStatus;
+	public String issuedto;
+	public LocalDateTime issuedDate;
+	public LocalDateTime returnDate;
 
-	public String getBook_Code() {
-		return book_Code;
+	public String getBookCode() {
+		return bookCode;
 	}
 
 
-	public void setBook_Code(String book_Code) {
-		this.book_Code = book_Code;
+	public void setBookCode(String bookCode) {
+		this.bookCode = bookCode;
 	}
 
 
-	public String getBook_Name() {
-		return book_Name;
+	public String getBookName() {
+		return bookName;
 	}
 
 
-	public void setBook_Name(String book_Name) {
-		this.book_Name = book_Name;
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
 
 
@@ -52,69 +53,69 @@ public class Book{
 	}
 
 
-	public String getIssue_Status() {
-		return issue_Status;
+	public String getIssueStatus() {
+		return issueStatus;
 	}
 
 
-	public void setIssue_Status(String issue_Status) {
-		this.issue_Status = issue_Status;
+	public void setIssueStatus(String issueStatus) {
+		this.issueStatus = issueStatus;
 	}
 
 
-	public String getIssued_to() {
-		return issued_to;
+	public String getIssuedto() {
+		return issuedto;
 	}
 
 
-	public void setIssued_to(String issued_to) {
-		this.issued_to = issued_to;
+	public void setIssuedto(String issuedto) {
+		this.issuedto = issuedto;
 	}
 
 
-	public LocalDateTime getIssued_Date() {
-		return issued_Date;
+	public LocalDateTime getIssuedDate() {
+		return issuedDate;
 	}
 
 
-	public void setIssued_Date(LocalDateTime issued_Date) {
-		this.issued_Date = issued_Date;
+	public void setIssuedDate(LocalDateTime issuedDate) {
+		this.issuedDate = issuedDate;
 	}
 
 
-	public LocalDateTime getReturn_Date() {
-		return return_Date;
+	public LocalDateTime getReturnDate() {
+		return returnDate;
 	}
 
 
-	public void setReturn_Date(LocalDateTime return_Date) {
-		this.return_Date = return_Date;
+	public void setReturnDate(LocalDateTime returnDate) {
+		this.returnDate = returnDate;
 	}
 	
 	public Book() {}
 	
 	
-	public Book(String book_Code, String book_Name, String author, String subject, String issue_Status, String issued_to, LocalDateTime issued_Date, LocalDateTime return_Date) {
-		this.book_Code = book_Code;
-		this.book_Name = book_Name;
+	public Book(String bookCode, String bookName, String author, String subject, String issueStatus, String issuedto, LocalDateTime issuedDate, LocalDateTime returnDate) {
+		this.bookCode = bookCode;
+		this.bookName = bookName;
 		this.author = author;
 		this.subject = subject;
-		this.issue_Status = issue_Status;
-		this.issued_to = issued_to;
-		this.issued_Date = issued_Date;
-		this.return_Date = return_Date;
+		this.issueStatus = issueStatus;
+		this.issuedto = issuedto;
+		this.issuedDate = issuedDate;
+		this.returnDate = returnDate;
 	}
 
 
 	@Override
 	public String toString() {
-		return book_Code +
-				"," + book_Name +
+		return bookCode +
+				"," + bookName +
 				"," + author +
 				"," + subject +
-				"," + issue_Status +
-				"," + issued_to +
-				"," + issued_Date +
-				"," + return_Date ;	
+				"," + issueStatus +
+				"," + issuedto +
+				"," + issuedDate +
+				"," + returnDate ;	
 	}
 }

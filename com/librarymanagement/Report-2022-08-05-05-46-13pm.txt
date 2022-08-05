@@ -1,0 +1,20 @@
+----------------------------------------------
+Book Code = j1234
+Book Name = java
+Author = john
+Subject = cs
+Issue Status = Issued
+Issued to = k11
+Issued Date = 2022-08-05T17:43:48.378358500
+Return Date = 2022-08-12T17:43:48.378358500
+----------------------------------------------
+----------------------------------------------
+Book Code = j1234
+Book Name = java
+Author = john
+Subject = cs
+Issue Status = Issued
+Issued to = k11
+Issued Date = 2022-08-05T17:43:48.378358500
+Return Date = 2022-08-12T17:43:48.378358500
+----------------------------------------------

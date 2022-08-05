@@ -1,4 +1,2 @@
-111,pearls,Wick,Cs,Available,NotIssued,null,null
-a123,AI,albert,cs,Available,NotIssued,null,null
-1234,maths,abc,math,Available,NotIssued,null,null
+1,1,1,1,Issued,2,2022-08-05T18:27:50.976921200,2022-08-12T18:27:50.976921200
 

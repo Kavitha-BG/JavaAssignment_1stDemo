@@ -5,30 +5,30 @@ import java.time.LocalDateTime;
 public class User {
 	
 	String name;
-	String user_Id;
-	String issued_Book_Id;
-	LocalDateTime date_Issued;
-	LocalDateTime return_Date;
+	String userId;
+	String issuedBookId;
+	LocalDateTime dateIssued;
+	LocalDateTime returnDate;
 	
 	public User() {
 		
 	}
 
-	public User(String name, String user_Id, String issued_Book_Id, LocalDateTime date_Issued, LocalDateTime return_Date) {
+	public User(String name, String userId, String issuedBookId, LocalDateTime dateIssued, LocalDateTime returnDate) {
 		this.name = name;
-		this.user_Id = user_Id;
-		this.issued_Book_Id = issued_Book_Id;
-		this.date_Issued = date_Issued;
-		this.return_Date = return_Date;
+		this.userId = userId;
+		this.issuedBookId = issuedBookId;
+		this.dateIssued = dateIssued;
+		this.returnDate = returnDate;
 	}
 
 	@Override
 	public String toString() {
 		return name +
-				"," + user_Id +
-				"," + issued_Book_Id +
-				"," + date_Issued +
-				"," + return_Date;
+				"," + userId +
+				"," + issuedBookId +
+				"," + dateIssued +
+				"," + returnDate;
 	}
 
 	public String getName() {
@@ -39,36 +39,36 @@ public class User {
 		this.name = name;
 	}
 
-	public String getUser_Id() {
-		return user_Id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser_Id(String user_Id) {
-		this.user_Id = user_Id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getIssued_Book_Id() {
-		return issued_Book_Id;
+	public String getIssuedBookId() {
+		return issuedBookId;
 	}
 
-	public void setIssued_Book_Id(String issued_Book_Id) {
-		this.issued_Book_Id = issued_Book_Id;
+	public void setIssuedBookId(String issuedBookId) {
+		this.issuedBookId = issuedBookId;
 	}
 
-	public LocalDateTime getDate_Issued() {
-		return date_Issued;
+	public LocalDateTime getDateIssued() {
+		return dateIssued;
 	}
 
-	public void setDate_Issued(LocalDateTime date_Issued) {
-		this.date_Issued = date_Issued;
+	public void setDateIssued(LocalDateTime dateIssued) {
+		this.dateIssued = dateIssued;
 	}
 
-	public LocalDateTime getReturn_Date() {
-		return return_Date;
+	public LocalDateTime getReturnDate() {
+		return returnDate;
 	}
 
-	public void setReturn_Date(LocalDateTime return_Date) {
-		this.return_Date = return_Date;
+	public void setReturnDate(LocalDateTime returnDate) {
+		this.returnDate = returnDate;
 	}
 	
 }

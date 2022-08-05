@@ -1,0 +1,40 @@
+----------------------------------------------
+Book Code = j1234
+Book Name = java
+Author = john
+Subject = cs
+Issue Status = Issued
+Issued to = k11
+Issued Date = 2022-08-05T17:43:48.378358500
+Return Date = 2022-08-12T17:43:48.378358500
+----------------------------------------------
+----------------------------------------------
+Book Code = k123
+Book Name = python
+Author = abc
+Subject = cs
+Issue Status = Available
+Issued to = NotIssued
+Issued Date = null
+Return Date = null
+----------------------------------------------
+----------------------------------------------
+Book Code = 555
+Book Name = dotnet
+Author = xxx
+Subject = cs
+Issue Status = Available
+Issued to = NotIssued
+Issued Date = null
+Return Date = null
+----------------------------------------------
+----------------------------------------------
+Book Code = j1234
+Book Name = java
+Author = john
+Subject = cs
+Issue Status = Issued
+Issued to = k11
+Issued Date = 2022-08-05T17:43:48.378358500
+Return Date = 2022-08-12T17:43:48.378358500
+----------------------------------------------
